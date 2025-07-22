@@ -1,0 +1,914 @@
+﻿<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Diagnostik Bahasa Indonesia Kelas 9</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f9ff;
+        }
+        .question-card {
+            transition: all 0.3s ease;
+        }
+        .question-card:hover {
+            transform: translateY(-5px);
+        }
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        .option-btn:hover {
+            transform: scale(1.02);
+        }
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            border-radius: 50%;
+        }
+        .slide-in {
+            animation: slideIn 0.3s ease forwards;
+        }
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        .score-item {
+            transition: all 0.3s ease;
+        }
+        .score-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="bg-white rounded-2xl shadow-lg p-8 mb-8 fade-in">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold text-blue-800 mb-2">Asesmen Diagnostik</h1>
+                    <h2 class="text-2xl font-semibold text-blue-600 mb-6">Bahasa Indonesia Kelas 9</h2>
+                </div>
+                <div class="bg-blue-600 text-white p-3 rounded-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 p-6 rounded-xl mb-6 border border-blue-100">
+                <p class="text-gray-700 mb-4">Selamat datang di Asesmen Diagnostik Bahasa Indonesia! Asesmen ini akan membantu mengidentifikasi kekuatan dan area yang perlu ditingkatkan dalam pemahaman Bahasa Indonesia kamu.</p>
+                <div class="flex items-center text-blue-600 font-medium">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                    </svg>
+                    <span>Asesmen ini terdiri dari 20 pertanyaan dengan berbagai topik.</span>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-green-50 p-4 rounded-lg border border-green-100 flex items-center">
+                    <div class="bg-green-100 p-2 rounded-full mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-green-800">Tata Bahasa</h3>
+                        <p class="text-sm text-green-600">Struktur kalimat & ejaan</p>
+                    </div>
+                </div>
+                <div class="bg-purple-50 p-4 rounded-lg border border-purple-100 flex items-center">
+                    <div class="bg-purple-100 p-2 rounded-full mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-purple-800">Pemahaman Bacaan</h3>
+                        <p class="text-sm text-purple-600">Analisis teks & makna</p>
+                    </div>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-lg border border-orange-100 flex items-center">
+                    <div class="bg-orange-100 p-2 rounded-full mr-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-medium text-orange-800">Kosakata</h3>
+                        <p class="text-sm text-orange-600">Makna kata & sinonim</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center space-x-4">
+                <button id="start-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                    Mulai Asesmen
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <button id="scores-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                    Lihat Skor
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Quiz Container -->
+        <div id="quiz-container" class="hidden">
+            <!-- Progress Bar -->
+            <div class="bg-white rounded-xl shadow-md p-4 mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-medium text-gray-600">Progres Asesmen</span>
+                    <span id="progress-text" class="text-sm font-medium text-blue-600">1/20</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full progress-bar" style="width: 5%"></div>
+                </div>
+            </div>
+            
+            <!-- Question Card -->
+            <div id="question-card" class="bg-white rounded-2xl shadow-lg p-8 mb-6 question-card">
+                <div id="question-category" class="inline-block px-3 py-1 rounded-full text-sm font-medium mb-4"></div>
+                <h3 id="question-text" class="text-xl font-semibold text-gray-800 mb-6"></h3>
+                <div id="options-container" class="space-y-3"></div>
+            </div>
+            
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between">
+                <button id="prev-btn" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out hidden">
+                    <div class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Sebelumnya
+                    </div>
+                </button>
+                <button id="next-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed">
+                    <div class="flex items-center">
+                        Selanjutnya
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Results Screen -->
+        <div id="results-screen" class="hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 fade-in">
+                <div class="text-center mb-6">
+                    <div class="inline-block p-4 rounded-full bg-blue-100 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-2">Asesmen Selesai!</h2>
+                    <p class="text-gray-600">Berikut adalah hasil diagnostik kamu</p>
+                </div>
+                
+                <div class="flex justify-center mb-8">
+                    <div class="relative">
+                        <svg class="w-36 h-36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="18" cy="18" r="16" fill="none" stroke="#e6e6e6" stroke-width="2"></circle>
+                            <circle id="score-circle" cx="18" cy="18" r="16" fill="none" stroke="#3b82f6" stroke-width="2" stroke-dasharray="100 100" stroke-dashoffset="0" transform="rotate(-90 18 18)"></circle>
+                        </svg>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="text-center">
+                                <span id="score-percentage" class="text-3xl font-bold text-blue-600">0%</span>
+                                <p class="text-sm text-gray-500">Skor</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h4 class="font-medium text-blue-800 mb-1">Tata Bahasa</h4>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-2 mr-2">
+                                <div id="grammar-progress" class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <span id="grammar-score" class="text-sm font-medium text-blue-600">0%</span>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h4 class="font-medium text-blue-800 mb-1">Pemahaman Bacaan</h4>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-2 mr-2">
+                                <div id="reading-progress" class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <span id="reading-score" class="text-sm font-medium text-blue-600">0%</span>
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                        <h4 class="font-medium text-blue-800 mb-1">Kosakata</h4>
+                        <div class="flex items-center">
+                            <div class="w-full bg-gray-200 rounded-full h-2 mr-2">
+                                <div id="vocabulary-progress" class="bg-blue-600 h-2 rounded-full" style="width: 0%"></div>
+                            </div>
+                            <span id="vocabulary-score" class="text-sm font-medium text-blue-600">0%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="feedback-container" class="bg-gray-50 p-6 rounded-xl mb-6 border border-gray-200">
+                    <h3 class="font-semibold text-gray-800 mb-3">Umpan Balik Diagnostik:</h3>
+                    <ul id="feedback-list" class="space-y-2 text-gray-700">
+                        <!-- Feedback will be inserted here -->
+                    </ul>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="restart-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+                        Mulai Ulang Asesmen
+                    </button>
+                    <button id="save-score-btn" class="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out transform hover:scale-105 flex items-center">
+                        Simpan Skor
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M7.707 10.293a1 1 0 10-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 11.586V6h1a2 2 0 012 2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h1v5.586l-1.293-1.293zM9 4a1 1 0 012 0v2H9V4z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scores Screen -->
+        <div id="scores-screen" class="hidden">
+            <div class="bg-white rounded-2xl shadow-lg p-8 mb-6 fade-in">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-800">Riwayat Skor</h2>
+                        <p class="text-gray-600">Catatan hasil asesmen sebelumnya</p>
+                    </div>
+                    <button id="back-to-welcome" class="bg-blue-100 hover:bg-blue-200 text-blue-700 font-medium py-2 px-4 rounded-lg transition duration-300 ease-in-out flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Kembali
+                    </button>
+                </div>
+                
+                <div id="no-scores-message" class="text-center py-10 bg-gray-50 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    <h3 class="text-lg font-medium text-gray-600 mb-2">Belum Ada Riwayat Skor</h3>
+                    <p class="text-gray-500">Selesaikan asesmen untuk melihat skor kamu di sini</p>
+                </div>
+                
+                <div id="scores-list" class="space-y-4 mt-6 hidden">
+                    <!-- Score items will be inserted here -->
+                </div>
+                
+                <div id="clear-scores-container" class="mt-8 text-center hidden">
+                    <button id="clear-scores-btn" class="bg-red-100 hover:bg-red-200 text-red-700 font-medium py-2 px-6 rounded-lg transition duration-300 ease-in-out">
+                        Hapus Semua Riwayat
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz data
+        const quizData = [
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat berikut yang menggunakan tanda baca dengan tepat?",
+                options: [
+                    "Ibu berkata, \"Ayo kita pergi ke pasar\"",
+                    "Ibu berkata \"Ayo kita pergi ke pasar.\"",
+                    "Ibu berkata, \"Ayo kita pergi ke pasar.\"",
+                    "Ibu berkata: \"Ayo kita pergi ke pasar\""
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat berikut yang menggunakan kata depan dengan tepat?",
+                options: [
+                    "Dia pergi ke sekolah pada pukul 06.30.",
+                    "Dia pergi kesekolah pada pukul 06.30.",
+                    "Dia pergi ke sekolah di pukul 06.30.",
+                    "Dia pergi sekolah pada pukul 06.30."
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat berikut yang menggunakan imbuhan dengan tepat?",
+                options: [
+                    "Buku itu di baca oleh Ani.",
+                    "Buku itu dibaca oleh Ani.",
+                    "Buku itu di-baca oleh Ani.",
+                    "Buku itu di baca oleh Ani"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah paragraf berikut:<br><br><em>Hutan mangrove memiliki peran penting dalam ekosistem pesisir. Selain sebagai habitat berbagai jenis flora dan fauna, hutan mangrove juga berfungsi sebagai pelindung pantai dari abrasi dan intrusi air laut. Sayangnya, banyak hutan mangrove yang rusak akibat alih fungsi lahan menjadi tambak atau pemukiman.</em><br><br>Apa ide pokok dari paragraf tersebut?",
+                options: [
+                    "Kerusakan hutan mangrove akibat alih fungsi lahan",
+                    "Peran penting hutan mangrove dalam ekosistem pesisir",
+                    "Hutan mangrove sebagai habitat flora dan fauna",
+                    "Hutan mangrove sebagai pelindung pantai dari abrasi"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah paragraf berikut:<br><br><em>Batik merupakan warisan budaya Indonesia yang telah diakui UNESCO. Proses pembuatan batik melibatkan teknik menggambar dengan lilin pada kain, kemudian dicelup ke dalam pewarna. Setiap daerah di Indonesia memiliki motif batik khas yang mencerminkan kearifan lokal masyarakatnya.</em><br><br>Kesimpulan yang tepat dari paragraf tersebut adalah...",
+                options: [
+                    "UNESCO mengakui batik sebagai warisan budaya dunia",
+                    "Proses pembuatan batik sangat rumit dan membutuhkan ketelitian",
+                    "Batik adalah warisan budaya Indonesia dengan keragaman motif yang mencerminkan kearifan lokal",
+                    "Setiap daerah di Indonesia memiliki motif batik yang berbeda-beda"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah yang merupakan sinonim dari kata \"pelik\"?",
+                options: [
+                    "Sederhana",
+                    "Rumit",
+                    "Mudah",
+                    "Jelas"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah yang merupakan antonim dari kata \"kikir\"?",
+                options: [
+                    "Pelit",
+                    "Hemat",
+                    "Dermawan",
+                    "Tamak"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah teks berikut:<br><br><em>Pandemi COVID-19 telah mengubah cara kita belajar. Pembelajaran jarak jauh menjadi solusi agar proses pendidikan tetap berjalan. Meskipun demikian, tidak semua siswa memiliki akses yang sama terhadap teknologi dan internet, sehingga menimbulkan kesenjangan dalam proses pembelajaran.</em><br><br>Apa masalah utama yang diungkapkan dalam teks tersebut?",
+                options: [
+                    "Pandemi COVID-19 mengganggu proses pendidikan",
+                    "Pembelajaran jarak jauh menjadi solusi terbaik",
+                    "Kesenjangan akses teknologi dan internet di antara siswa",
+                    "Perubahan cara belajar akibat pandemi"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah penggunaan kata \"baku\" yang tepat dalam kalimat berikut?",
+                options: [
+                    "Dia mengkonsumsi obat itu setiap hari.",
+                    "Dia menkonsumsi obat itu setiap hari.",
+                    "Dia mengkosumsi obat itu setiap hari.",
+                    "Dia mengonsumsi obat itu setiap hari."
+                ],
+                correctAnswer: 3
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat efektif berikut ini?",
+                options: [
+                    "Surat itu saya sudah terima kemarin.",
+                    "Surat itu sudah saya terima kemarin.",
+                    "Surat itu kemarin sudah saya terima.",
+                    "Kemarin surat itu sudah saya terima."
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah penggunaan kata hubung yang tepat dalam kalimat berikut?",
+                options: [
+                    "Dia tidak datang karena sakit.",
+                    "Dia tidak datang dikarenakan sakit.",
+                    "Dia tidak datang disebabkan karena sakit.",
+                    "Dia tidak datang oleh karena sakit."
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat yang menggunakan kata ulang dengan tepat?",
+                options: [
+                    "Anak-anak bermain di halaman sekolah.",
+                    "Anak anak bermain di halaman sekolah.",
+                    "Anak2 bermain di halaman sekolah.",
+                    "Anak² bermain di halaman sekolah."
+                ],
+                correctAnswer: 0
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah paragraf berikut:<br><br><em>Wayang kulit adalah seni pertunjukan tradisional Indonesia yang menggunakan boneka pipih yang terbuat dari kulit sapi atau kerbau. Pertunjukan wayang kulit biasanya diiringi oleh gamelan dan dipentaskan oleh seorang dalang. Cerita yang dibawakan umumnya berasal dari epos Mahabharata dan Ramayana.</em><br><br>Berdasarkan paragraf tersebut, pernyataan yang benar adalah...",
+                options: [
+                    "Wayang kulit hanya menggunakan cerita dari epos Mahabharata.",
+                    "Wayang kulit selalu diiringi oleh alat musik modern.",
+                    "Wayang kulit adalah seni pertunjukan yang menggunakan boneka pipih dari kulit sapi atau kerbau.",
+                    "Wayang kulit tidak memerlukan dalang dalam pertunjukannya."
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah paragraf berikut:<br><br><em>Energi terbarukan menjadi solusi untuk mengatasi krisis energi di masa depan. Sumber energi seperti matahari, angin, dan air dapat dimanfaatkan tanpa khawatir akan habis. Selain itu, energi terbarukan juga lebih ramah lingkungan dibandingkan dengan energi fosil yang menghasilkan emisi karbon.</em><br><br>Tujuan penulis dalam paragraf tersebut adalah...",
+                options: [
+                    "Menjelaskan proses pembuatan energi terbarukan",
+                    "Membandingkan berbagai jenis energi terbarukan",
+                    "Menginformasikan pentingnya energi terbarukan sebagai solusi krisis energi",
+                    "Mengkritik penggunaan energi fosil yang masih tinggi"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah yang merupakan makna kata \"ambigu\"?",
+                options: [
+                    "Jelas dan tegas",
+                    "Bermakna ganda atau tidak jelas",
+                    "Sangat menarik",
+                    "Tidak masuk akal"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah yang merupakan sinonim dari kata \"kolaborasi\"?",
+                options: [
+                    "Persaingan",
+                    "Perselisihan",
+                    "Kerjasama",
+                    "Pertentangan"
+                ],
+                correctAnswer: 2
+            },
+            {
+                category: { name: "Pemahaman Bacaan", color: "purple" },
+                question: "Bacalah kutipan puisi berikut:<br><br><em>Aku ingin mencintaimu dengan sederhana<br>dengan kata yang tak sempat diucapkan<br>kayu kepada api yang menjadikannya abu</em><br><br>Makna yang terkandung dalam kutipan puisi tersebut adalah...",
+                options: [
+                    "Cinta yang rumit dan penuh pengorbanan",
+                    "Cinta yang tulus dan tanpa pamrih",
+                    "Cinta yang berakhir dengan kekecewaan",
+                    "Cinta yang tidak tersampaikan"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat yang menggunakan kata serapan dengan tepat?",
+                options: [
+                    "Dia sedang menganalisa data penelitian.",
+                    "Dia sedang menganalisis data penelitian.",
+                    "Dia sedang menganalisir data penelitian.",
+                    "Dia sedang analisa data penelitian."
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Kosakata", color: "orange" },
+                question: "Manakah yang merupakan makna peribahasa \"bagai air di daun talas\"?",
+                options: [
+                    "Sesuatu yang sangat berharga",
+                    "Sesuatu yang tidak tetap atau selalu berubah-ubah",
+                    "Sesuatu yang sangat sulit dilakukan",
+                    "Sesuatu yang tidak berguna"
+                ],
+                correctAnswer: 1
+            },
+            {
+                category: { name: "Tata Bahasa", color: "green" },
+                question: "Manakah kalimat yang menggunakan kata benda abstrak dengan tepat?",
+                options: [
+                    "Dia membeli buku di toko.",
+                    "Kebahagiaan tidak bisa dibeli dengan uang.",
+                    "Pohon itu sangat tinggi.",
+                    "Kucing itu berwarna hitam."
+                ],
+                correctAnswer: 1
+            }
+        ];
+
+        // Variables
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = Array(quizData.length).fill(null);
+        let savedScores = JSON.parse(localStorage.getItem('bahasa_indonesia_scores')) || [];
+        
+        // DOM Elements
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const quizContainer = document.getElementById('quiz-container');
+        const resultsScreen = document.getElementById('results-screen');
+        const scoresScreen = document.getElementById('scores-screen');
+        const startBtn = document.getElementById('start-btn');
+        const scoresBtn = document.getElementById('scores-btn');
+        const questionCategory = document.getElementById('question-category');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const nextBtn = document.getElementById('next-btn');
+        const prevBtn = document.getElementById('prev-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const restartBtn = document.getElementById('restart-btn');
+        const saveScoreBtn = document.getElementById('save-score-btn');
+        const backToWelcomeBtn = document.getElementById('back-to-welcome');
+        const scoresList = document.getElementById('scores-list');
+        const noScoresMessage = document.getElementById('no-scores-message');
+        const clearScoresContainer = document.getElementById('clear-scores-container');
+        const clearScoresBtn = document.getElementById('clear-scores-btn');
+        
+        // Event Listeners
+        startBtn.addEventListener('click', startQuiz);
+        scoresBtn.addEventListener('click', showScores);
+        nextBtn.addEventListener('click', nextQuestion);
+        prevBtn.addEventListener('click', prevQuestion);
+        restartBtn.addEventListener('click', restartQuiz);
+        saveScoreBtn.addEventListener('click', saveScore);
+        backToWelcomeBtn.addEventListener('click', backToWelcome);
+        clearScoresBtn.addEventListener('click', clearScores);
+        
+        // Check and update scores display
+        updateScoresDisplay();
+        
+        // Functions
+        function startQuiz() {
+            welcomeScreen.classList.add('hidden');
+            scoresScreen.classList.add('hidden');
+            quizContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+        
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            
+            // Set category
+            questionCategory.textContent = question.category.name;
+            questionCategory.className = `inline-block px-3 py-1 rounded-full text-sm font-medium mb-4 bg-${question.category.color}-100 text-${question.category.color}-800`;
+            
+            // Set question text
+            questionText.innerHTML = question.question;
+            
+            // Clear previous options
+            optionsContainer.innerHTML = '';
+            
+            // Add options
+            question.options.forEach((option, index) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = `option-btn w-full text-left p-4 rounded-lg border ${userAnswers[currentQuestion] === index ? 'bg-blue-50 border-blue-300' : 'bg-white border-gray-200'} hover:bg-blue-50 hover:border-blue-300 transition duration-200`;
+                optionBtn.innerHTML = `
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-6 w-6 rounded-full border-2 ${userAnswers[currentQuestion] === index ? 'border-blue-500 bg-blue-500' : 'border-gray-300'} mr-3 flex items-center justify-center">
+                            ${userAnswers[currentQuestion] === index ? '<span class="text-white text-sm">✓</span>' : ''}
+                        </div>
+                        <span>${option}</span>
+                    </div>
+                `;
+                optionBtn.addEventListener('click', () => selectOption(index));
+                optionsContainer.appendChild(optionBtn);
+            });
+            
+            // Update progress
+            updateProgress();
+            
+            // Update navigation buttons
+            updateNavButtons();
+        }
+        
+        function selectOption(index) {
+            userAnswers[currentQuestion] = index;
+            loadQuestion();
+            nextBtn.disabled = false;
+        }
+        
+        function nextQuestion() {
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        }
+        
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+        
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizData.length) * 100;
+            progressBar.style.width = `${progress}%`;
+            progressText.textContent = `${currentQuestion + 1}/${quizData.length}`;
+        }
+        
+        function updateNavButtons() {
+            prevBtn.classList.toggle('hidden', currentQuestion === 0);
+            nextBtn.textContent = currentQuestion === quizData.length - 1 ? 'Selesai' : 'Selanjutnya';
+            nextBtn.disabled = userAnswers[currentQuestion] === null;
+        }
+        
+        function calculateScore() {
+            score = 0;
+            const categoryScores = {
+                "Tata Bahasa": { correct: 0, total: 0 },
+                "Pemahaman Bacaan": { correct: 0, total: 0 },
+                "Kosakata": { correct: 0, total: 0 }
+            };
+            
+            userAnswers.forEach((answer, index) => {
+                const question = quizData[index];
+                const category = question.category.name;
+                
+                categoryScores[category].total++;
+                
+                if (answer === question.correctAnswer) {
+                    score++;
+                    categoryScores[category].correct++;
+                }
+            });
+            
+            const percentage = Math.round((score / quizData.length) * 100);
+            
+            return {
+                totalScore: percentage,
+                categoryScores: {
+                    grammar: Math.round((categoryScores["Tata Bahasa"].correct / categoryScores["Tata Bahasa"].total) * 100) || 0,
+                    reading: Math.round((categoryScores["Pemahaman Bacaan"].correct / categoryScores["Pemahaman Bacaan"].total) * 100) || 0,
+                    vocabulary: Math.round((categoryScores["Kosakata"].correct / categoryScores["Kosakata"].total) * 100) || 0
+                }
+            };
+        }
+        
+        function generateFeedback(scores) {
+            const feedbackList = document.getElementById('feedback-list');
+            feedbackList.innerHTML = '';
+            
+            const addFeedbackItem = (text, icon) => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start slide-in';
+                li.innerHTML = `
+                    <span class="flex-shrink-0 h-5 w-5 mt-0.5 mr-2">${icon}</span>
+                    <span>${text}</span>
+                `;
+                feedbackList.appendChild(li);
+            };
+            
+            // Overall feedback
+            if (scores.totalScore >= 80) {
+                addFeedbackItem('Selamat! Kamu memiliki pemahaman yang sangat baik dalam Bahasa Indonesia.', '🏆');
+            } else if (scores.totalScore >= 60) {
+                addFeedbackItem('Bagus! Kamu memiliki pemahaman yang cukup baik dalam Bahasa Indonesia.', '👍');
+            } else {
+                addFeedbackItem('Kamu perlu lebih banyak latihan untuk meningkatkan pemahaman Bahasa Indonesia.', '📝');
+            }
+            
+            // Category feedback
+            if (scores.categoryScores.grammar < 60) {
+                addFeedbackItem('Perhatikan penggunaan tata bahasa, tanda baca, dan struktur kalimat yang benar.', '📌');
+            }
+            
+            if (scores.categoryScores.reading < 60) {
+                addFeedbackItem('Tingkatkan kemampuan memahami ide pokok dan menarik kesimpulan dari teks.', '📚');
+            }
+            
+            if (scores.categoryScores.vocabulary < 60) {
+                addFeedbackItem('Perbanyak membaca untuk memperkaya kosakata dan pemahaman makna kata.', '📖');
+            }
+            
+            // Specific strengths
+            if (scores.categoryScores.grammar >= 80) {
+                addFeedbackItem('Kamu memiliki pemahaman yang baik tentang tata bahasa Indonesia.', '✨');
+            }
+            
+            if (scores.categoryScores.reading >= 80) {
+                addFeedbackItem('Kemampuan pemahaman bacaanmu sangat baik.', '✨');
+            }
+            
+            if (scores.categoryScores.vocabulary >= 80) {
+                addFeedbackItem('Kamu memiliki penguasaan kosakata yang baik.', '✨');
+            }
+        }
+        
+        function showResults() {
+            quizContainer.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            
+            const scores = calculateScore();
+            
+            // Update score circle
+            const scoreCircle = document.getElementById('score-circle');
+            const circumference = 2 * Math.PI * 16;
+            const offset = circumference - (scores.totalScore / 100) * circumference;
+            scoreCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+            scoreCircle.style.strokeDashoffset = offset;
+            
+            // Update score percentage
+            document.getElementById('score-percentage').textContent = `${scores.totalScore}%`;
+            
+            // Update category scores
+            document.getElementById('grammar-progress').style.width = `${scores.categoryScores.grammar}%`;
+            document.getElementById('grammar-score').textContent = `${scores.categoryScores.grammar}%`;
+            
+            document.getElementById('reading-progress').style.width = `${scores.categoryScores.reading}%`;
+            document.getElementById('reading-score').textContent = `${scores.categoryScores.reading}%`;
+            
+            document.getElementById('vocabulary-progress').style.width = `${scores.categoryScores.vocabulary}%`;
+            document.getElementById('vocabulary-score').textContent = `${scores.categoryScores.vocabulary}%`;
+            
+            // Generate feedback
+            generateFeedback(scores);
+            
+            // Create confetti effect if score is good
+            if (scores.totalScore >= 70) {
+                createConfetti();
+            }
+        }
+        
+        function createConfetti() {
+            const confettiCount = 100;
+            const colors = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = -10 + 'px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate(
+                    [
+                        { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                        { transform: `translateY(${window.innerHeight}px) rotate(${Math.random() * 360}deg)`, opacity: 0 }
+                    ],
+                    {
+                        duration: Math.random() * 3000 + 2000,
+                        easing: 'cubic-bezier(0.37, 0, 0.63, 1)'
+                    }
+                );
+                
+                animation.onfinish = () => {
+                    confetti.remove();
+                };
+            }
+        }
+        
+        function restartQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            userAnswers = Array(quizData.length).fill(null);
+            resultsScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+        
+        function saveScore() {
+            const scores = calculateScore();
+            const date = new Date();
+            
+            const scoreData = {
+                id: Date.now(),
+                date: date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' }),
+                time: date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }),
+                totalScore: scores.totalScore,
+                categoryScores: scores.categoryScores
+            };
+            
+            savedScores.unshift(scoreData);
+            localStorage.setItem('bahasa_indonesia_scores', JSON.stringify(savedScores));
+            
+            // Show notification
+            const notification = document.createElement('div');
+            notification.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg fade-in';
+            notification.textContent = 'Skor berhasil disimpan!';
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+            
+            // Update scores display
+            updateScoresDisplay();
+        }
+        
+        function showScores() {
+            welcomeScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            scoresScreen.classList.remove('hidden');
+            
+            updateScoresDisplay();
+        }
+        
+        function updateScoresDisplay() {
+            if (savedScores.length === 0) {
+                noScoresMessage.classList.remove('hidden');
+                scoresList.classList.add('hidden');
+                clearScoresContainer.classList.add('hidden');
+            } else {
+                noScoresMessage.classList.add('hidden');
+                scoresList.classList.remove('hidden');
+                clearScoresContainer.classList.remove('hidden');
+                
+                // Clear previous scores
+                scoresList.innerHTML = '';
+                
+                // Add scores
+                savedScores.forEach((scoreData, index) => {
+                    const scoreItem = document.createElement('div');
+                    scoreItem.className = 'score-item bg-white p-4 rounded-lg border border-gray-200 shadow-sm';
+                    
+                    let badgeColor = 'gray';
+                    if (scoreData.totalScore >= 80) badgeColor = 'green';
+                    else if (scoreData.totalScore >= 60) badgeColor = 'blue';
+                    else badgeColor = 'orange';
+                    
+                    scoreItem.innerHTML = `
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <div class="flex items-center mb-2">
+                                    <span class="bg-${badgeColor}-100 text-${badgeColor}-800 text-xs font-medium px-2.5 py-0.5 rounded-full mr-2">${scoreData.totalScore}%</span>
+                                    <span class="text-sm text-gray-500">${scoreData.date} · ${scoreData.time}</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2 mt-3">
+                                    <div class="text-center">
+                                        <div class="text-xs text-gray-500 mb-1">Tata Bahasa</div>
+                                        <div class="font-medium">${scoreData.categoryScores.grammar}%</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-xs text-gray-500 mb-1">Pemahaman</div>
+                                        <div class="font-medium">${scoreData.categoryScores.reading}%</div>
+                                    </div>
+                                    <div class="text-center">
+                                        <div class="text-xs text-gray-500 mb-1">Kosakata</div>
+                                        <div class="font-medium">${scoreData.categoryScores.vocabulary}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="delete-score-btn text-gray-400 hover:text-red-500" data-id="${scoreData.id}">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    `;
+                    
+                    scoresList.appendChild(scoreItem);
+                    
+                    // Add delete event listener
+                    const deleteBtn = scoreItem.querySelector('.delete-score-btn');
+                    deleteBtn.addEventListener('click', () => deleteScore(scoreData.id));
+                });
+            }
+        }
+        
+        function deleteScore(id) {
+            savedScores = savedScores.filter(score => score.id !== id);
+            localStorage.setItem('bahasa_indonesia_scores', JSON.stringify(savedScores));
+            updateScoresDisplay();
+        }
+        
+        function clearScores() {
+            // Confirmation dialog
+            if (confirm('Apakah kamu yakin ingin menghapus semua riwayat skor?')) {
+                savedScores = [];
+                localStorage.setItem('bahasa_indonesia_scores', JSON.stringify(savedScores));
+                updateScoresDisplay();
+            }
+        }
+        
+        function backToWelcome() {
+            scoresScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'962f564c114086fb',t:'MTc1MzE0OTU0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
